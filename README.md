@@ -1,4 +1,4 @@
-# Carbon Data Analysis
+# Carbon Pricing Analysis
 This is a simple ETL processing and analysis pipeline project ran on AWS. The analysis sought to understand the effect of national carbon pricing mechanisms (carbon taxes or cap-and-trade) on countries' CO2 Emissions. More specifically,
 
 - How did countries’ rate of annual carbon emissions (from fossil fuels & land use) change in response to their national carbon pricing?
