@@ -57,6 +57,7 @@ main_sql_query = f"""
     )
     SELECT
         year,
+        to_date(cast(year as string), 'yyyy') as date,
         country,
         curr_year_emission,
         prev_year_emission,
