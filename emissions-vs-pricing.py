@@ -33,14 +33,14 @@ emissions_reduction = glueContext.create_dynamic_frame.from_catalog(
 emissions_pricing_time_df = emissions_pricing_time.toDF().select('country', 'date', 'tax_yn', 'ets_yn', 'avg_net_tax_rate_clean')
 emissions_reduction_df = emissions_reduction.toDF().where(f.col('yoy_rate').isNotNull())
 
+# Transformations
 emissions_reduction_df = emissions_reduction_df.withColumn('date', f.to_date(f.col('year').cast('string'), 'yyyy'))
-
 emissions_vs_pricing_df = emissions_reduction_df.join(emissions_pricing_time_df, (emissions_reduction_df.country==emissions_pricing_time_df.country) & (emissions_reduction_df.date==emissions_pricing_time_df.date))
-
 emissions_vs_pricing_df.show()
 
 emissions_vs_pricing_dyF = DynamicFrame.fromDF(emissions_vs_pricing_df, glueContext, "emissions_vs_pricing")
 
+# Write to S3
 S3bucket_node3 = glueContext.write_dynamic_frame.from_options(
     frame=emissions_vs_pricing_dyF,
     connection_type="s3",
