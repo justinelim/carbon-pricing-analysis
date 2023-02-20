@@ -30,10 +30,12 @@ emissions_reduction = glueContext.create_dynamic_frame.from_catalog(
 )
 
 # Convert to Spark DataFrame
-emissions_pricing_time_df = emissions_pricing_time.toDF().select('country', 'year', 'tax', 'ets', 'tax_rate_incl_ex_clcu')
+emissions_pricing_time_df = emissions_pricing_time.toDF().select('country', 'date', 'tax_yn', 'ets_yn', 'avg_net_tax_rate_clean')
 emissions_reduction_df = emissions_reduction.toDF().where(f.col('yoy_rate').isNotNull())
 
-emissions_vs_pricing_df = emissions_reduction_df.join(emissions_pricing_time_df, (emissions_reduction_df.country==emissions_pricing_time_df.country) & (emissions_reduction_df.year==emissions_pricing_time_df.year))
+emissions_reduction_df = emissions_reduction_df.withColumn('date', f.to_date(f.col('year').cast('string'), 'yyyy'))
+
+emissions_vs_pricing_df = emissions_reduction_df.join(emissions_pricing_time_df, (emissions_reduction_df.country==emissions_pricing_time_df.country) & (emissions_reduction_df.date==emissions_pricing_time_df.date))
 
 emissions_vs_pricing_df.show()
 
