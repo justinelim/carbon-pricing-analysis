@@ -16,7 +16,7 @@ This is a simple ETL processing and analysis pipeline project ran on AWS. The an
 ![Carbon Analysis Architecture Diagram](resources/blob/architecture-diagram.png)
 
 ## Visualization
-The results are presented as a [Tableau viz](https://public.tableau.com/app/profile/justine.lim/viz/carbon-analysis/Story1).
+The results are presented as a [Tableau viz](https://public.tableau.com/views/carbon-analysis_16779185468550/Story1?:language=en-GB&:display_count=n&:origin=viz_share_link).
 
 ## Future Work
 - Abstract the data standardization & cleaning functions into a separate upstream job
